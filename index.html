@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Lings Project</title>
+</head>
+<body>
+
+    <header>
+        <img src="placeholder.jpg" alt="Logo" id="profile-picture">
+        <h1>Santtu Karhu</h1>
+        <p>Game Developer | Software Engineer</p>
+    </header>
+
+
+    <section id="about">
+        <h2>Last Light - Dungeon Crawler</h2>
+        <p>
+            Last Light is a action RPG that combines elements from Diablo and Dark Souls. The game takes place in a torch lit dungeon, where the player needs to fight their way through enemies to stop a fallen angel. 
+        </p>
+
+        <a href="https://github.com/JSABear/Dungeon-Crawler">Source Code (Private - Ask for access)</a>
+
+    </section>
+
+    <section id="videos">
+        <h2>Game Development Showcase</h2>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/tbMjKBksv8w?si=3KIwzUY9J7-cYtuc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </section>
+
+    <section id="code-snippets">
+        <h2>Ai</h2>
+        <p>My main task in this project was the creation of the enemies. Here are some snippets from how one of the enemies functions.</p>
+        <p>
+
+        </p>
+
+        <h3>Enemy Blueprint</h3>
+        <p>
+            Base blueprint has a character, weapon and two colliders. Character has a assigned animation blueprint to allow for 8 directional movement blendspace and idle animation. Weapon has a seperate event graph to enable and disable hit detection when animation notify calls for it. The two colliders are used to
+            track if player is within the combat range to swap from just chasing the player to more intelligent behaviour and to track if player is in melee range which changes the character to choose behaviour from melee tasks.
+        </p>
+        <pre>
+        <img src="CharacterWithColliders.jpg" style="width: 40vw; min-width: 330px;" alt="colliders" id="collider-picture">
+        </pre>
+
+        <h3>Animation Blueprint</h3>
+        <p>Animation blueprint reads base blueprints speed and direction of movement to change walking animations blendspace to match characters movement.</p>
+        <pre>
+        <img src="AnimBP.jpg" style="width: 40vw; min-width: 330px;" alt="anim" id="anim-picture">
+        
+        </pre>
+
+
+        <h3>Ai Controller</h3>
+        <p>
+            Base blueprint gets assigned a INT_combat interface that lets tasks call attack events from base blueprint. Ai Controller is attached to the base blueprint which enables the character to be controlled by the Behaviour tree that is attached to the Ai Controller. Blackboard is attached to the behaviour tree to allow
+            tracking and changing of states. Lastly behaviour tree has a list of tasks and services to make ai's actions more dynamic
+        </p>
+        <pre>
+        <img src="BlueprintStructure.jpg" style="width: 40vw; min-width: 330px;" alt="structure" id="structure-picture">
+        </pre>
+
+        <h3>Behaviour Tree</h3>
+        <p>
+            Enemy idle behaviour is to roam within a certain radius around their starting location. When player is noticed, enemy starts chasing the player until the player is no longer in sight and is far enough from the enemy. When player is close enough to the enemy, the enemy enters combat behaviour. These are either charging at the player
+            or flanking around them or waiting. When player enters the enemies melee range, they enter the melee behaviour branch. Here they can either attack the player, move around the player or dash away from them.
+        </p>
+        <pre>
+        <img src="BehaviourTree.jpg" style="width: 55vw; min-width: 330px;" alt="bt" id="bt-picture">
+        </pre>
+
+        <h3>Example Task</h3>
+        <p>
+            Here is a example code blueprint from the BTTask_WalkToTheSideRook. First enemy focuses on the player, making sure they are facing the right direction. Next a reference is made to the enemy pawn so it can be used later. Lastly character is given a command to move using a formula that is picked randomly from three possible
+            options. All of them start in the same way by getting the look rotation from the enemy to the player. If the random is a 0, code uses that as is to get forward vector from a certain distance from the player. Then it gets added to the location of the player and is used to get a random reachable location in a given radius, which is then
+            returned to the move command as destination. If the random result is 1 or 2, the same is done but the look rotation is rotated either to the left or right instead of just away from the player.
+        </p>
+        <pre>
+        <img src="TaskExample.jpg" style="width: 85vw; min-width: 330px;" alt="taskexample" id="taskexample-picture">
+        </pre>
+
+
+    </section>
+
+
+
+    <footer>
+        <p>&copy; 2024 Santtu Karhu. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
